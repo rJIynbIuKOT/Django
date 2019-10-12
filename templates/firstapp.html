@@ -2,7 +2,7 @@
 
 {% block content %}
     <h1>Учим Django Вместе!</h1>
-
+    <h2>Но это не точно</h2>
         {% for person in people %}
             <h2>{{ person.fio }}</h2>
             <h3>Пол: {% if person.gender %}мужской{% else %}женский{% endif %}</h3>
