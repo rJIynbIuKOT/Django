@@ -1,6 +1,19 @@
 {% extends 'base.html' %}
 
 {% block content %}
+  <a href="http://127.0.0.1:8000/books/"> Книги </a>
+
+  <section class="jumbotron text-center">
+    <div class="container">
+      <h1 class="jumbotron-heading">Список контактов</h1>
+      <p class="lead text-muted">Описание проекта</p>
+{#      <p>#}
+{#        <a href="#" class="btn btn-primary my-2">Main call to action</a>#}
+{#        <a href="#" class="btn btn-secondary my-2">Secondary action</a>#}
+{#      </p>#}
+    </div>
+  </section>
+
     <h1>Учим Django Вместе!</h1>
     <h2>Но это не точно</h2>
         {% for person in people %}

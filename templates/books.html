@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block content %}
+    <a href="http://127.0.0.1:8000/"> Список контактов </a>
+    <h1>Книги по издателям</h1>
+        {% for pub in pubs %}
+            <h2>{{ pub.name }}</h2>
+            <ul>
+                {% for book in pub.books.all %}
+                    <li><strong>{{ book.name }}</strong> - <strong>{{ book.author }}</strong> <span>({{ book.year }})</span> <span>{{ book.genre }}</span></li>
+                {% empty %}
+                    <li>{{ pub.name }} книг не имеет</li>
+                {% endfor %}
+            </ul><br>
+
+            {% if not forloop.last %}
+                <hr>
+            {% endif %}
+
+        {% endfor %}
+
+    <h1>Книги по авторам</h1>
+        {% for aut in auts %}
+            <h2>{{ aut.name }}</h2>
+            <ul>
+                {% for book in aut.books.all %}
+                    <li><strong>{{ book.name }}</strong> - <strong>{{ book.publisher }}</strong> <span>({{ book.year }})</span> <span>{{ book.genre }}</span></li>
+                {% empty %}
+                    <li>{{ aut.name }} книг не имеет</li>
+                {% endfor %}
+            </ul><br>
+
+            {% if not forloop.last %}
+                <hr>
+            {% endif %}
+
+        {% endfor %}
+
+
+{% endblock %}
