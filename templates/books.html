@@ -1,12 +1,22 @@
 {% extends 'base.html' %}
+{% block title %} Список всех книг {% endblock %}
 {% block content %}
     <a href="http://127.0.0.1:8000/"> Список контактов </a>
+    <div>
+        {% if user.is_authenticated %}
+            <a href="{% url 'book_new' %}"><h1>Добавить новую книгу <img src="https://image.freepik.com/free-icon/_318-9157.jpg" height="30"></h1></a>
+        {% endif %}
+    </div>
     <h1>Книги по издателям</h1>
         {% for pub in pubs %}
             <h2>{{ pub.name }}</h2>
             <ul>
-                {% for book in pub.books.all %}
-                    <li><strong>{{ book.name }}</strong> - <strong>{{ book.author }}</strong> <span>({{ book.year }})</span> <span>{{ book.genre }}</span></li>
+                {% for book in pub.order %}
+                <li><a href="{% url 'book_page' pk=book.pk %}"><img src="{{ book.image.url }}" alt="Обложка" width="60" vspace="5"><strong> {{ book.name }} - {{ book.author.name }}</strong></a>
+                    {% if user.is_authenticated %}
+                        <a href="{% url 'delete' pk=book.pk%}"><img src="https://image.flaticon.com/icons/png/512/61/61848.png" width="40"></a>
+                    {% endif %}
+                </li>
                 {% empty %}
                     <li>{{ pub.name }} книг не имеет</li>
                 {% endfor %}
@@ -22,8 +32,13 @@
         {% for aut in auts %}
             <h2>{{ aut.name }}</h2>
             <ul>
-                {% for book in aut.books.all %}
-                    <li><strong>{{ book.name }}</strong> - <strong>{{ book.publisher }}</strong> <span>({{ book.year }})</span> <span>{{ book.genre }}</span></li>
+                {% for book in aut.order %}
+                    <li>
+                        <a href="{% url 'book_page' pk=book.pk %}"><img src="{{ book.image.url }}" alt="Обложка" width="60" vspace="5"><strong>{{ book.name }} ({{ book.publisher }})</strong></a>
+                        {% if user.is_authenticated %}
+                            <a href="{% url 'delete' pk=book.pk%}"><img src="https://image.flaticon.com/icons/png/512/61/61848.png" width="40"></a>
+                        {% endif %}
+                    </li>
                 {% empty %}
                     <li>{{ aut.name }} книг не имеет</li>
                 {% endfor %}
